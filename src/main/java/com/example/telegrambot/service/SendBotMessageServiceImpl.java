@@ -50,15 +50,55 @@ public class SendBotMessageServiceImpl implements SendBotMessageService{
 
         InlineKeyboardButton editShow = new InlineKeyboardButton();
         editShow.setText("Помощь");
-        editShow.setCallbackData("help");
+        editShow.setCallbackData("/help");
 
         InlineKeyboardButton addShow = new InlineKeyboardButton();
         addShow.setText("Выставки");
-        addShow.setCallbackData("shows");
+        addShow.setCallbackData("/shows");
 
         InlineKeyboardButton addShow1 = new InlineKeyboardButton();
         addShow1.setText("Интересный факт");
-        addShow1.setCallbackData("fact");
+        addShow1.setCallbackData("/fact");
+
+        rowInLine1.add(editShow);
+        rowInLine1.add(addShow);
+        rowInLine2.add(addShow1);
+
+        rowsInLine.add(rowInLine1);
+        rowsInLine.add(rowInLine2);
+
+        inlineKeyboardMarkup.setKeyboard(rowsInLine);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            log.error("Error send photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void messageToHelp(long chatId, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(EmojiParser.parseToUnicode(text));
+        sendMessage.setChatId(String.valueOf(chatId));
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine1 = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine2 = new ArrayList<>();
+
+        InlineKeyboardButton editShow = new InlineKeyboardButton();
+        editShow.setText("Выставки");
+        editShow.setCallbackData("/shows");
+
+        InlineKeyboardButton addShow = new InlineKeyboardButton();
+        addShow.setText("Интересный факт");
+        addShow.setCallbackData("/fact");
+
+        InlineKeyboardButton addShow1 = new InlineKeyboardButton();
+        addShow1.setText("Что это за бот?");
+        addShow1.setCallbackData("/start");
 
         rowInLine1.add(editShow);
         rowInLine1.add(addShow);

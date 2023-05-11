@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public interface SendBotMessageService {
 
+    void messageToStart(long chatId, String text);
+
+    void messageToHelp(long chatId, String text);
+
     void prepareAndSendMessage(long chatId, String textToSend);
 
     void sendMessageWithKeyboard(long chatId, String chatUserName, String message);
@@ -23,5 +27,5 @@ public interface SendBotMessageService {
 
     void messageAboutShow(long chatId, long showId, String text);
 
-    void messageToStart(long chatId, String text);
+
 }
