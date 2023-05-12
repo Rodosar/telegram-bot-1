@@ -42,18 +42,8 @@ public class TelegramBot extends TelegramLongPollingBot{
 
     final BotConfig config;
 
-    final static boolean isCallBack = true;
-
-    private HashMap<Boolean, String> commandMap;
-    private HashMap<String, Long> showDescription;
-    private String showCommandName;
-
     public TelegramBot(BotConfig config){
-        this.config=config;
-        commandMap = new HashMap<>();
-        showDescription = new HashMap<>();
-
-
+        this.config = config;
     }
 
     @Override
@@ -70,10 +60,6 @@ public class TelegramBot extends TelegramLongPollingBot{
     public void onUpdateReceived(Update update) {
 
         commandContainer.fillMap(sendBotMessageService, userRepository, autoShowsRepository, factsRepository);
-        Iterable<AutoShows> autoShow = autoShowsRepository.findAll();
-        for(AutoShows show : autoShow){
-            showDescription.put(show.getDescription(), show.getId());
-        }
 
         if(update.hasMessage() && update.getMessage().hasText()){
             String command = update.getMessage().getText();
