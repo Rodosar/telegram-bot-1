@@ -31,15 +31,19 @@ public class StartCommand implements Command {
     public void execute(Update update) {
 
         long chatId;
+        long messageId = 0;
 
         if (update.hasMessage()){
             chatId = update.getMessage().getChatId();
             Message message = update.getMessage();
             registerUser(chatId, message);
+            sendBotMessageService.messageToStart(chatId, START);
         } else {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+            messageId = update.getCallbackQuery().getMessage().getMessageId();
+            sendBotMessageService.messageToStartCallBack(chatId, messageId, START);
         }
-        sendBotMessageService.messageToStart(chatId, START);
+
     }
 
 

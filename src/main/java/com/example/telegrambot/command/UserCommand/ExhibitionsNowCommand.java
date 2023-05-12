@@ -21,10 +21,13 @@ public class ExhibitionsNowCommand implements Command{
     public void execute(Update update) {
 
         long chatId;
+        long messageId = 0;
+
         if (update.hasMessage()){
             chatId = update.getMessage().getChatId();
         } else {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+            messageId = update.getCallbackQuery().getMessage().getMessageId();
         }
 
         StringBuilder autoShowsMessage = new StringBuilder();
@@ -33,6 +36,6 @@ public class ExhibitionsNowCommand implements Command{
             autoShowsMessage.append(autoShow.toStringAllShows());
         }
         String message = String.valueOf(autoShowsMessage);
-        sendBotMessageService.messageToShow(chatId, message);
+        sendBotMessageService.messageToShow(chatId, messageId, message);
     }
 }

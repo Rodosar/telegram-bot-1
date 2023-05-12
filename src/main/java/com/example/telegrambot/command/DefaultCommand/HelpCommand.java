@@ -23,11 +23,16 @@ public class HelpCommand implements Command {
     public void execute(Update update) {
 
         long chatId;
+        long messageId = 0;
+
         if (update.hasMessage()){
             chatId = update.getMessage().getChatId();
+            sendBotMessageService.prepareAndSendMessage(chatId, HELP_TEXT); //сделать метод с кнопками
         } else {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+            messageId = update.getCallbackQuery().getMessage().getMessageId();
+            sendBotMessageService.messageToHelp(chatId,messageId, HELP_TEXT);
         }
-        sendBotMessageService.messageToHelp(chatId, HELP_TEXT);
+
     }
 }
