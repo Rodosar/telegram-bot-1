@@ -42,39 +42,18 @@ public class InterestingFact implements Command {
     @Override
     public void execute(Update update) {
 
-        long chatId = update.getMessage().getChatId();
-
         Random random = new Random();
-
         long factId = factsArray.get(random.nextInt(factsArray.size()));
-
         Optional<Facts> getFact = factsRepository.findById(factId);
         Facts fact = getFact.get();
-        sendBotMessageService.prepareAndSendMessage(chatId, fact.toString());
-       /* if (factsMap.get(factId) == 0){
-            sendBotMessageService.prepareAndSendMessage(chatId, fact.toString());
-            factsMap.computeIfPresent(factId, (a,b) -> b = 1);
-            Facts facts = new Facts();
-            facts.setFact();
-            factsRepository.save();
-        }
 
-        int i = Integer.parseInt(fact.getFact());
-
-
-        factsArray = new ArrayList();
-        if (removeFactsArray == null){
-            removeFactsArray = new ArrayList<>();
+        long chatId;
+        if (update.hasMessage()){
+            chatId = update.getMessage().getChatId();
+        } else {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
         }
-        Iterable<Facts> facts = factsRepository.findAll();
-        for (Facts fact : facts) {
-            long factId = fact.getId();
-            factsArray.add(factId);
-        }
-        if(removeFactsArray.isEmpty()){
-            removeFactsArray = factsArray;
-        }
-*/
+        sendBotMessageService.messageToFact(chatId, fact.toString());
 
     }
 

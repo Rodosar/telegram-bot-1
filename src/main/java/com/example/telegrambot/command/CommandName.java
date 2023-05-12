@@ -14,8 +14,8 @@ public enum CommandName {
     DELETESHOW("/deleteshow"),
 
     EXHIBITIONS("/exhibitions"),
-    FACT("Расскажи какой-нибудь факт!"),
-    MOREINFO("Подробная информация про выставку");
+    FACT("/fact"),
+    MOREINFO("/moreinfo");
 
 
     private String commandName;

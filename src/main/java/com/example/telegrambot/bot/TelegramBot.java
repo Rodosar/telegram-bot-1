@@ -100,17 +100,17 @@ public class TelegramBot extends TelegramLongPollingBot{
             String callBackChatUserName = callbackQuery.getMessage().getChat().getUserName();
             long callBackChatId = callbackQuery.getMessage().getChatId();
 
-            if(!commandMap.isEmpty()){
-                String command = commandMap.get(true);
+
+               /* String command = commandMap.get(true);
                 switch (command){
                     case "/start":
-                        switch (callBackCommand){
-                            case "help":
-                                String HELP_TEXT = "Этот бот предназначен для поиска автомобильных выставок, просмотра информации по этим выставкам и другой полезной информации";
-                                sendBotMessageService.prepareAndSendMessage(callBackChatId, HELP_TEXT);
-                        }
-                }
-            }
+
+                    case "/help":
+                        HelpCommand helpCommand = new HelpCommand(sendBotMessageService);
+                        helpCommand.execute(update);
+                    case "/show":
+                }*/
+            commandContainer.findCommand(callBackChatUserName, callBackCommand).execute(update);
         }
     }
 }

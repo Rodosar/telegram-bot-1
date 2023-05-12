@@ -19,6 +19,9 @@ public class StartCommand implements Command {
 
     private SendBotMessageService sendBotMessageService;
 
+    final static String START = "Здравствуйте! :oncoming_automobile: \nЭтот бот предназначен для предоставления информации по автомобильным выставкам в г. Санкт-Петербург.\nЧтобы ознакомиться с возможностями и доступными командами нажмите /help" ;
+
+
     public StartCommand(SendBotMessageService sendBotMessageService, UserRepository userRepository) {
         this.sendBotMessageService = sendBotMessageService;
         this.userRepository = userRepository;
@@ -26,21 +29,20 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        long chatId = update.getMessage().getChatId();
-        String chatUserName = update.getMessage().getChat().getUserName();
-        String firstName = update.getMessage().getChat().getFirstName();
-        Message message = update.getMessage();
 
-        registerUser(chatId, message);
-        startCommandReceived(chatId, chatUserName, firstName);
+        long chatId;
+
+        if (update.hasMessage()){
+            chatId = update.getMessage().getChatId();
+            Message message = update.getMessage();
+            registerUser(chatId, message);
+        } else {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+        }
+        sendBotMessageService.messageToStart(chatId, START);
     }
 
-    private void startCommandReceived(long chatId, String chatUserName, String firstName){//действия при нажатии /start
-        String text = "Здравствуйте! :oncoming_automobile: \nЭтот бот предназначен для предоставления информации по автомобильным выставкам в г. Санкт-Петербург.\nЧтобы ознакомиться с возможностями и доступными командами нажмите /help" ;
-        log.info("Replied to user " + firstName);
 
-        sendBotMessageService.messageToStart(chatId, text);
-    }
 
     private void registerUser(long chatId, Message message){//регистрация пользователя
         if(userRepository.findById(chatId).isEmpty()){

@@ -50,6 +50,46 @@ public class SendBotMessageServiceImpl implements SendBotMessageService{
 
         InlineKeyboardButton editShow = new InlineKeyboardButton();
         editShow.setText("Помощь");
+        editShow.setCallbackData("/help");
+
+        InlineKeyboardButton addShow = new InlineKeyboardButton();
+        addShow.setText("Выставки");
+        addShow.setCallbackData("/exhibitions");
+
+        InlineKeyboardButton addShow1 = new InlineKeyboardButton();
+        addShow1.setText("Интересный факт");
+        addShow1.setCallbackData("/fact");
+
+        rowInLine1.add(editShow);
+        rowInLine1.add(addShow);
+        rowInLine2.add(addShow1);
+
+        rowsInLine.add(rowInLine1);
+        rowsInLine.add(rowInLine2);
+
+        inlineKeyboardMarkup.setKeyboard(rowsInLine);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            log.error("Error send photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void messageToStartCallBack(long chatId, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(EmojiParser.parseToUnicode(text));
+        sendMessage.setChatId(String.valueOf(chatId));
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine1 = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine2 = new ArrayList<>();
+
+        InlineKeyboardButton editShow = new InlineKeyboardButton();
+        editShow.setText("Помощь");
         editShow.setCallbackData("help");
 
         InlineKeyboardButton addShow = new InlineKeyboardButton();
@@ -63,6 +103,126 @@ public class SendBotMessageServiceImpl implements SendBotMessageService{
         rowInLine1.add(editShow);
         rowInLine1.add(addShow);
         rowInLine2.add(addShow1);
+
+        rowsInLine.add(rowInLine1);
+        rowsInLine.add(rowInLine2);
+
+        inlineKeyboardMarkup.setKeyboard(rowsInLine);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            log.error("Error send photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void messageToHelp(long chatId, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(EmojiParser.parseToUnicode(text));
+        sendMessage.setChatId(String.valueOf(chatId));
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine1 = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine2 = new ArrayList<>();
+
+        InlineKeyboardButton editShow = new InlineKeyboardButton();
+        editShow.setText("Выставки");
+        editShow.setCallbackData("/exhibitions");
+
+        InlineKeyboardButton addShow = new InlineKeyboardButton();
+        addShow.setText("Интересный факт");
+        addShow.setCallbackData("/fact");
+
+        InlineKeyboardButton addShow1 = new InlineKeyboardButton();
+        addShow1.setText("Главное меню");
+        addShow1.setCallbackData("/start");
+
+        rowInLine1.add(editShow);
+        rowInLine1.add(addShow);
+        rowInLine2.add(addShow1);
+
+        rowsInLine.add(rowInLine1);
+        rowsInLine.add(rowInLine2);
+
+        inlineKeyboardMarkup.setKeyboard(rowsInLine);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            log.error("Error send photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void messageToFact(long chatId, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(EmojiParser.parseToUnicode(text));
+        sendMessage.setChatId(String.valueOf(chatId));
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine1 = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine2 = new ArrayList<>();
+
+        InlineKeyboardButton button1 = new InlineKeyboardButton();
+        button1.setText("Расскажи ещё факт!");
+        button1.setCallbackData("/fact");
+
+        InlineKeyboardButton button2 = new InlineKeyboardButton();
+        button2.setText("Выставки");
+        button2.setCallbackData("/exhibitions");
+
+        InlineKeyboardButton button3 = new InlineKeyboardButton();
+        button3.setText("Главное меню");
+        button3.setCallbackData("/start");
+
+        rowInLine1.add(button1);
+        rowInLine2.add(button2);
+        rowInLine2.add(button3);
+
+        rowsInLine.add(rowInLine1);
+        rowsInLine.add(rowInLine2);
+
+        inlineKeyboardMarkup.setKeyboard(rowsInLine);
+        sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+
+        try {
+            telegramBot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            log.error("Error send photo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void messageToShow(long chatId, String text) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setText(EmojiParser.parseToUnicode(text));
+        sendMessage.setChatId(String.valueOf(chatId));
+
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine1 = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine2 = new ArrayList<>();
+
+        InlineKeyboardButton button1 = new InlineKeyboardButton();
+        button1.setText("Подробнее о выставках");
+        button1.setCallbackData("/moreinfo");
+
+        InlineKeyboardButton button2 = new InlineKeyboardButton();
+        button2.setText("Интересный факт");
+        button2.setCallbackData("/fact");
+
+        InlineKeyboardButton button3 = new InlineKeyboardButton();
+        button3.setText("Главное меню");
+        button3.setCallbackData("/start");
+
+        rowInLine1.add(button1);
+        rowInLine2.add(button2);
+        rowInLine2.add(button3);
 
         rowsInLine.add(rowInLine1);
         rowsInLine.add(rowInLine2);

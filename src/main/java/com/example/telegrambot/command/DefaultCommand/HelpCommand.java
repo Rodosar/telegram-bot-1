@@ -22,11 +22,12 @@ public class HelpCommand implements Command {
     @Override
     public void execute(Update update) {
 
-        long chatId = update.getMessage().getChatId();
-        //sendBotMessageService.sendPhotoWithText(chatId, HELP_TEXT + ":blush:");
-        sendBotMessageService.callBackSendMessage(chatId, HELP_TEXT);
-
+        long chatId;
+        if (update.hasMessage()){
+            chatId = update.getMessage().getChatId();
+        } else {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+        }
+        sendBotMessageService.messageToHelp(chatId, HELP_TEXT);
     }
-
-
 }

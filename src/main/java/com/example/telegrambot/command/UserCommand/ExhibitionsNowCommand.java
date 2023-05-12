@@ -19,13 +19,20 @@ public class ExhibitionsNowCommand implements Command{
 
     @Override
     public void execute(Update update) {
-        long chatId = update.getMessage().getChatId();
+
+        long chatId;
+        if (update.hasMessage()){
+            chatId = update.getMessage().getChatId();
+        } else {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+        }
+
         StringBuilder autoShowsMessage = new StringBuilder();
         Iterable<AutoShows> autoShows = autoShowsRepository.findAll();
         for(AutoShows autoShow : autoShows){
             autoShowsMessage.append(autoShow.toStringAllShows());
         }
         String message = String.valueOf(autoShowsMessage);
-        sendBotMessageService.prepareAndSendMessage(chatId, message);
+        sendBotMessageService.messageToShow(chatId, message);
     }
 }
