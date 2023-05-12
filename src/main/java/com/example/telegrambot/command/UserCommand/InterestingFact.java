@@ -48,12 +48,16 @@ public class InterestingFact implements Command {
         Facts fact = getFact.get();
 
         long chatId;
+        long messageId = 0;
+
         if (update.hasMessage()){
             chatId = update.getMessage().getChatId();
         } else {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+            messageId = update.getCallbackQuery().getMessage().getMessageId();
+
         }
-        sendBotMessageService.messageToFact(chatId, fact.toString());
+        sendBotMessageService.messageToFact(chatId, messageId, fact.toString());
 
     }
 

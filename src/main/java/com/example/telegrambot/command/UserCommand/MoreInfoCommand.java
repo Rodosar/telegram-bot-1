@@ -18,8 +18,9 @@ public class MoreInfoCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        long chatId = update.getMessage().getChatId();
+        long chatId = update.getCallbackQuery().getMessage().getChatId();
+        long messageId = update.getCallbackQuery().getMessage().getMessageId();
 
-        sendBotMessageService.sendCallBackMessageButtonsShow(chatId, autoShowsRepository,"Выберите автомобильную выставку");
+        sendBotMessageService.messageToAllShows(chatId, messageId, autoShowsRepository, "Выберите автомобильную выставку");
     }
 }

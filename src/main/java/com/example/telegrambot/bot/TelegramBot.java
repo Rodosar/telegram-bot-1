@@ -75,42 +75,15 @@ public class TelegramBot extends TelegramLongPollingBot{
             showDescription.put(show.getDescription(), show.getId());
         }
 
-
-
         if(update.hasMessage() && update.getMessage().hasText()){
-
-            String chatUserName = update.getMessage().getChat().getUserName();
             String command = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-
-            if(commandContainer.isCommand(chatUserName,command)){
-                commandMap.put(true, command);
-                commandContainer.findCommand(chatUserName,command).execute(update);
-            }
-
-
-
+            commandContainer.findCommand(chatId,command).execute(update);
         }
         else if(update.hasCallbackQuery()){
-
-            CallbackQuery callbackQuery = update.getCallbackQuery();
-            String callBackCommand = callbackQuery.getData();
-            showCommandName = callBackCommand;
-            String callBackText = callbackQuery.getMessage().getText();
-            String callBackChatUserName = callbackQuery.getMessage().getChat().getUserName();
-            long callBackChatId = callbackQuery.getMessage().getChatId();
-
-
-               /* String command = commandMap.get(true);
-                switch (command){
-                    case "/start":
-
-                    case "/help":
-                        HelpCommand helpCommand = new HelpCommand(sendBotMessageService);
-                        helpCommand.execute(update);
-                    case "/show":
-                }*/
-            commandContainer.findCommand(callBackChatUserName, callBackCommand).execute(update);
+            String callBackCommand = update.getCallbackQuery().getData();
+            long callBackChatId = update.getCallbackQuery().getMessage().getChatId();
+            commandContainer.findCommand(callBackChatId, callBackCommand).execute(update);
         }
     }
 }
